@@ -1,0 +1,117 @@
+#Funcao que recebe os dados dos clientes
+def inserirDados1():
+    cont = ' '
+    dadosCliente = ()
+    while cont != 'n':
+        nomeCliente = input('Digite o nome do cliente: ')
+        nomeAnimal = input('Digite o nome do animal: ')
+        especieAnimal = input('Digite a especie do animal: ')
+        idadeAnimal = int(input('Digite a idade do animal: '))
+        pesoAnimal = float(input('Digite o peso do animal: '))
+        cont = input('Adicionar mais um cliente? s/n ')
+        Cliente = (nomeCliente, nomeAnimal, especieAnimal, idadeAnimal,\
+                        pesoAnimal)
+        dadosCliente += (Cliente,)
+    return dadosCliente
+
+
+#Funcao que mostra a lista dos clientes
+def mostrarClientes2(dadosCliente):
+    if len(dadosCliente) == 0:
+        print('Nao ha clientes cadastrados')
+    else:
+        for cliente in dadosCliente:
+            nomeCliente, nomeAnimal, especieAnimal, idadeAnimal, pesoAnimal = cliente
+            print(f'Dono: {nomeCliente} ; Animal: {nomeAnimal} ; Idade: {idadeAnimal} ano(s) ;\
+ Peso: {pesoAnimal} kg')
+    print()
+
+#Funcao que mostra todos os animais da especie desejada
+def mostrarEspecie3(dadosCliente):
+    if len(dadosCliente) == 0:
+        print('Nao ha clientes cadastrados')
+    else:
+        especieDesejada = input('Qual a especie desejada?' ).lower()
+        for cliente in dadosCliente:
+            nomeCliente,nomeAnimal,especieAnimal,idadeAnimal,pesoAnimal = cliente
+            if especieAnimal.lower() == especieDesejada:
+                print(f'Cliente: {nomeCliente} ; Animal: {nomeAnimal} ; \
+Idade: {idadeAnimal} anos(s) ; Peso: {pesoAnimal} kg')
+            else:
+                print('Especie nao encontrada')
+    print()
+
+
+#Funcao que mostra dados do cliente desejado
+def dadosClienteDesejado4(dadosCliente):
+    clienteDesejado = input('Qual o cliente desejado?').lower()
+    for cliente in dadosCliente:
+        nomeCliente,nomeAnimal,especieAnimal,idadeAnimal,pesoAnimal = cliente
+        if nomeCliente.lower() == clienteDesejado:
+            print(f'Animal: {nomeAnimal} ; Especie: {especieAnimal} ; \
+Idade: {idadeAnimal} ano(s) ; Peso: {pesoAnimal} kg')
+        else:
+            print('Cliente nao encontrado')
+    print()
+
+#Funcao que remove dados de um ou mais clientes
+def removerClientes5(dadosCliente):
+    while True:
+        clienteRemovido = input('Qual cliente deseja remover? ').lower()
+        clientesEncontrados = ()
+        for cliente in dadosCliente:
+            if cliente[0].lower() == clienteRemovido:
+                clientesEncontrados += (cliente,)
+        if len(clientesEncontrados) == 0:
+            print('Cliente nao encontrado')
+        else:
+            print(f'{len(clientesEncontrados)} cliente(s) encontrado(s).')
+            clienteSubscrito = ()
+            for cliente in dadosCliente:
+                  if cliente in clientesEncontrados:
+                      print(f'Cliente: {cliente[0]} ; Animal: {cliente[1]} ;\
+ Especie: {cliente[2]} ; Idade: {cliente[3]} ano(s) ; Peso: {cliente[4]} kg')
+                      confirmar = input('Deseja remover o cliente? (s/n) ').lower()
+                      if confirmar != 's':
+                          clienteSubscrito += (cliente,)
+                  else:
+                      clienteSubscrito += (cliente,)
+            dadosCliente = clienteSubscrito
+        continuar = input('Deseja excluir outro cliente? (s/n) ').lower()
+        if continuar != 's':
+            break
+    return dadosCliente
+
+
+#Menu Principal do programa
+def menuPrincipal1():
+    print('Digite uma das opcoes abaixo')
+    print('1- Inserir dados de clientes')
+    print('2- Mostrar clientes')
+    print('3- Todos os clientes de uma determinada espécie')
+    print('4- Todos os animais de um determinado cliente')
+    print('5- Remover dados de um ou mais clientes')
+    print('6- Sair')
+
+#Criando a funcao principal
+def main1():
+    dadosCliente = ()
+    while True:
+        menuPrincipal1()
+        r = input('Opcao: ')
+        if r == '1':
+            dadosCliente += inserirDados1()
+        elif r == '2':
+            mostrarClientes2(dadosCliente)
+        elif r == '3':
+            mostrarEspecie3(dadosCliente)
+        elif r == '4':
+            dadosClienteDesejado4(dadosCliente)
+        elif r == '5':
+            dadosCliente = removerClientes5(dadosCliente)
+        elif r == '6':
+            print('Tchauuu!!!')
+            break
+        else:
+            print('Opcao invalida.')
+main1()
